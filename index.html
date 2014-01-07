@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>pop.js</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <style>
+        body {
+            background: #F7F7F7;
+            overflow-x: hidden;
+            font-family: sans-serif;
+            margin: 0;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        header {
+            color: #1390FF;
+            text-align: center;
+            padding: 1em 0;
+        }
+
+        h1 {
+            font-size: 2em;
+        }
+
+        section {
+            max-width: 640px;
+            margin: 1em auto;
+            padding: 0 1em;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 6px 12px;
+            margin: 6px;
+            font-size: 14px;
+            font-weight: normal;
+            line-height: 1.428571429;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            cursor: pointer;
+            background-image: none;
+            border: 1px solid #C0C0C0;
+            border-radius: 4px;
+            -webkit-user-select: none;
+            user-select: none;
+            color: #1390FF;
+            text-decoration: none;
+            background-color: transparent;
+            transition: background-color .1s ease-in-out;
+        }
+
+        .btn:hover {
+            text-decoration: none;
+            background: #1390FF;
+            color: white;
+            border-color: #1390FF;
+        }
+
+
+        .btn-block {
+            display: block;
+            width: 100%;
+            padding-right: 0;
+            padding-left: 0;
+        }
+
+        table {
+            max-width: 100%;
+            background-color: transparent;
+        }
+
+        th {
+            text-align: left;
+        }
+
+        .table {
+            width: 100%;
+            margin-bottom: 20px;
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        .table > thead > tr > th,
+        .table > tbody > tr > th,
+        .table > tfoot > tr > th,
+        .table > thead > tr > td,
+        .table > tbody > tr > td,
+        .table > tfoot > tr > td {
+            padding: 8px;
+            line-height: 1.428571429;
+            vertical-align: top;
+            border-top: 1px solid #dddddd;
+        }
+
+        .table > thead > tr > th {
+            vertical-align: bottom;
+            border-bottom: 2px solid #dddddd;
+        }
+
+        .table > caption + thead > tr:first-child > th,
+        .table > colgroup + thead > tr:first-child > th,
+        .table > thead:first-child > tr:first-child > th,
+        .table > caption + thead > tr:first-child > td,
+        .table > colgroup + thead > tr:first-child > td,
+        .table > thead:first-child > tr:first-child > td {
+            border-top: 0;
+        }
+
+        .table > tbody + tbody {
+            border-top: 2px solid #dddddd;
+        }
+
+        .table .table {
+            background-color: #ffffff;
+        }
+
+        .table-condensed > thead > tr > th,
+        .table-condensed > tbody > tr > th,
+        .table-condensed > tfoot > tr > th,
+        .table-condensed > thead > tr > td,
+        .table-condensed > tbody > tr > td,
+        .table-condensed > tfoot > tr > td {
+            padding: 5px;
+        }
+
+        .table-bordered {
+            border: 1px solid #dddddd;
+        }
+
+        .table-bordered > thead > tr > th,
+        .table-bordered > tbody > tr > th,
+        .table-bordered > tfoot > tr > th,
+        .table-bordered > thead > tr > td,
+        .table-bordered > tbody > tr > td,
+        .table-bordered > tfoot > tr > td {
+            border: 1px solid #dddddd;
+        }
+
+        .table-bordered > thead > tr > th,
+        .table-bordered > thead > tr > td {
+            border-bottom-width: 2px;
+        }
+
+        .table-striped > tbody > tr:nth-child(odd) > td,
+        .table-striped > tbody > tr:nth-child(odd) > th {
+            background-color: #f9f9f9;
+        }
+
+        .table-hover > tbody > tr:hover > td,
+        .table-hover > tbody > tr:hover > th {
+            background-color: #f5f5f5;
+        }
+
+        table col[class*="col-"] {
+            position: static;
+            display: table-column;
+            float: none;
+        }
+
+        table td[class*="col-"],
+        table th[class*="col-"] {
+            display: table-cell;
+            float: none;
+        }
+
+        .table > thead > tr > .active,
+        .table > tbody > tr > .active,
+        .table > tfoot > tr > .active,
+        .table > thead > .active > td,
+        .table > tbody > .active > td,
+        .table > tfoot > .active > td,
+        .table > thead > .active > th,
+        .table > tbody > .active > th,
+        .table > tfoot > .active > th {
+            background-color: #f5f5f5;
+        }
+
+        .table-hover > tbody > tr > .active:hover,
+        .table-hover > tbody > .active:hover > td,
+        .table-hover > tbody > .active:hover > th {
+            background-color: #e8e8e8;
+        }
+
+        .table > thead > tr > .success,
+        .table > tbody > tr > .success,
+        .table > tfoot > tr > .success,
+        .table > thead > .success > td,
+        .table > tbody > .success > td,
+        .table > tfoot > .success > td,
+        .table > thead > .success > th,
+        .table > tbody > .success > th,
+        .table > tfoot > .success > th {
+            background-color: #dff0d8;
+        }
+
+        .table-hover > tbody > tr > .success:hover,
+        .table-hover > tbody > .success:hover > td,
+        .table-hover > tbody > .success:hover > th {
+            background-color: #d0e9c6;
+        }
+
+        .table > thead > tr > .danger,
+        .table > tbody > tr > .danger,
+        .table > tfoot > tr > .danger,
+        .table > thead > .danger > td,
+        .table > tbody > .danger > td,
+        .table > tfoot > .danger > td,
+        .table > thead > .danger > th,
+        .table > tbody > .danger > th,
+        .table > tfoot > .danger > th {
+            background-color: #f2dede;
+        }
+
+        .table-hover > tbody > tr > .danger:hover,
+        .table-hover > tbody > .danger:hover > td,
+        .table-hover > tbody > .danger:hover > th {
+            background-color: #ebcccc;
+        }
+
+        .table > thead > tr > .warning,
+        .table > tbody > tr > .warning,
+        .table > tfoot > tr > .warning,
+        .table > thead > .warning > td,
+        .table > tbody > .warning > td,
+        .table > tfoot > .warning > td,
+        .table > thead > .warning > th,
+        .table > tbody > .warning > th,
+        .table > tfoot > .warning > th {
+            background-color: #fcf8e3;
+        }
+
+        .table-hover > tbody > tr > .warning:hover,
+        .table-hover > tbody > .warning:hover > td,
+        .table-hover > tbody > .warning:hover > th {
+            background-color: #faf2cc;
+        }
+
+        @media (max-width: 767px) {
+            .table-responsive {
+                width: 100%;
+                margin-bottom: 15px;
+                overflow-x: scroll;
+                overflow-y: hidden;
+                border: 1px solid #dddddd;
+                -ms-overflow-style: -ms-autohiding-scrollbar;
+                -webkit-overflow-scrolling: touch;
+            }
+            .table-responsive > .table {
+                margin-bottom: 0;
+            }
+            .table-responsive > .table > thead > tr > th,
+            .table-responsive > .table > tbody > tr > th,
+            .table-responsive > .table > tfoot > tr > th,
+            .table-responsive > .table > thead > tr > td,
+            .table-responsive > .table > tbody > tr > td,
+            .table-responsive > .table > tfoot > tr > td {
+                white-space: nowrap;
+            }
+            .table-responsive > .table-bordered {
+                border: 0;
+            }
+            .table-responsive > .table-bordered > thead > tr > th:first-child,
+            .table-responsive > .table-bordered > tbody > tr > th:first-child,
+            .table-responsive > .table-bordered > tfoot > tr > th:first-child,
+            .table-responsive > .table-bordered > thead > tr > td:first-child,
+            .table-responsive > .table-bordered > tbody > tr > td:first-child,
+            .table-responsive > .table-bordered > tfoot > tr > td:first-child {
+                border-left: 0;
+            }
+            .table-responsive > .table-bordered > thead > tr > th:last-child,
+            .table-responsive > .table-bordered > tbody > tr > th:last-child,
+            .table-responsive > .table-bordered > tfoot > tr > th:last-child,
+            .table-responsive > .table-bordered > thead > tr > td:last-child,
+            .table-responsive > .table-bordered > tbody > tr > td:last-child,
+            .table-responsive > .table-bordered > tfoot > tr > td:last-child {
+                border-right: 0;
+            }
+            .table-responsive > .table-bordered > tbody > tr:last-child > th,
+            .table-responsive > .table-bordered > tfoot > tr:last-child > th,
+            .table-responsive > .table-bordered > tbody > tr:last-child > td,
+            .table-responsive > .table-bordered > tfoot > tr:last-child > td {
+                border-bottom: 0;
+            }
+        }
+
+        .highlight {
+            display: block;
+            padding: 9px 14px;
+            margin-bottom: 14px;
+            background-color: #f7f7f9;
+            border: 1px solid #e1e1e8;
+            border-radius: 4px;
+            overflow-x: scroll;
+            overflow-y: hidden;
+        }
+        .highlight pre {
+            padding: 0;
+            margin-top: 0;
+            margin-bottom: 0;
+            background-color: transparent;
+            border: 0;
+            white-space: nowrap;
+        }
+        .highlight pre code {
+            font-size: inherit;
+            color: #333; /* Effectively the base text color */
+        }
+        .highlight pre .lineno {
+            display: inline-block;
+            width: 22px;
+            padding-right: 5px;
+            margin-right: 10px;
+            text-align: right;
+            color: #bebec5;
+        }
+        .hll { background-color: #ffffcc }
+        /*{ background: #f0f3f3; }*/
+        .c { color: #999; } /* Comment */
+        .err { color: #AA0000; background-color: #FFAAAA } /* Error */
+        .k { color: #006699; } /* Keyword */
+        .o { color: #555555 } /* Operator */
+        .cm { color: #0099FF; font-style: italic } /* Comment.Multiline */
+        .cp { color: #009999 } /* Comment.Preproc */
+        .c1 { color: #999; } /* Comment.Single */
+        .cs { color: #999; } /* Comment.Special */
+        .gd { background-color: #FFCCCC; border: 1px solid #CC0000 } /* Generic.Deleted */
+        .ge { font-style: italic } /* Generic.Emph */
+        .gr { color: #FF0000 } /* Generic.Error */
+        .gh { color: #003300; } /* Generic.Heading */
+        .gi { background-color: #CCFFCC; border: 1px solid #00CC00 } /* Generic.Inserted */
+        .go { color: #AAAAAA } /* Generic.Output */
+        .gp { color: #000099; } /* Generic.Prompt */
+        .gs { } /* Generic.Strong */
+        .gu { color: #003300; } /* Generic.Subheading */
+        .gt { color: #99CC66 } /* Generic.Traceback */
+        .kc { color: #006699; } /* Keyword.Constant */
+        .kd { color: #006699; } /* Keyword.Declaration */
+        .kn { color: #006699; } /* Keyword.Namespace */
+        .kp { color: #006699 } /* Keyword.Pseudo */
+        .kr { color: #006699; } /* Keyword.Reserved */
+        .kt { color: #007788; } /* Keyword.Type */
+        .m { color: #FF6600 } /* Literal.Number */
+        .s { color: #d44950 } /* Literal.String */
+        .na { color: #4f9fcf } /* Name.Attribute */
+        .nb { color: #336666 } /* Name.Builtin */
+        .nc { color: #00AA88; } /* Name.Class */
+        .no { color: #336600 } /* Name.Constant */
+        .nd { color: #9999FF } /* Name.Decorator */
+        .ni { color: #999999; } /* Name.Entity */
+        .ne { color: #CC0000; } /* Name.Exception */
+        .nf { color: #CC00FF } /* Name.Function */
+        .nl { color: #9999FF } /* Name.Label */
+        .nn { color: #00CCFF; } /* Name.Namespace */
+        .nt { color: #2f6f9f; } /* Name.Tag */
+        .nv { color: #003333 } /* Name.Variable */
+        .ow { color: #000000; } /* Operator.Word */
+        .w { color: #bbbbbb } /* Text.Whitespace */
+        .mf { color: #FF6600 } /* Literal.Number.Float */
+        .mh { color: #FF6600 } /* Literal.Number.Hex */
+        .mi { color: #FF6600 } /* Literal.Number.Integer */
+        .mo { color: #FF6600 } /* Literal.Number.Oct */
+        .sb { color: #CC3300 } /* Literal.String.Backtick */
+        .sc { color: #CC3300 } /* Literal.String.Char */
+        .sd { color: #CC3300; font-style: italic } /* Literal.String.Doc */
+        .s2 { color: #CC3300 } /* Literal.String.Double */
+        .se { color: #CC3300; } /* Literal.String.Escape */
+        .sh { color: #CC3300 } /* Literal.String.Heredoc */
+        .si { color: #AA0000 } /* Literal.String.Interpol */
+        .sx { color: #CC3300 } /* Literal.String.Other */
+        .sr { color: #33AAAA } /* Literal.String.Regex */
+        .s1 { color: #CC3300 } /* Literal.String.Single */
+        .ss { color: #FFCC33 } /* Literal.String.Symbol */
+        .bp { color: #336666 } /* Name.Builtin.Pseudo */
+        .vc { color: #003333 } /* Name.Variable.Class */
+        .vg { color: #003333 } /* Name.Variable.Global */
+        .vi { color: #003333 } /* Name.Variable.Instance */
+        .il { color: #FF6600 } /* Literal.Number.Integer.Long */
+
+        .css .o,
+        .css .o + .nt,
+        .css .nt + .nt { color: #999; }
+
+
+
+    </style>
+    <link href="css/pop.css" rel="stylesheet">
+    <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+    <script>window.jQuery || document.write('<script src="libs/jquery-2.0.3.min.js"><\/script>')</script>
+    <script src="js/pop.js"></script>
+</head>
+
+<body>
+
+<div id="myPop" class="pop" role="dialog" aria-labelledby="myPopLable" aria-hidden="true">
+    <div class="pop-content">
+        <div class="pop-header"><h1 class="pop-title" id="myPoplable">Pop Title</h1></div>
+        <div class="pop-body" role="note"></p>Pop body...</p></div>
+        <div class="pop-footer">
+            <button data-dismiss="pop" class="pop-btn">Skip</button>
+            <button
+                    data-dismiss="pop" class="pop-btn">Stay
+            </button>
+        </div>
+    </div>
+</div>
+
+<page class="pop-page" id="myPage">
+
+<article class="pop-page-content">
+
+<header><h1>pop.js</h1></header>
+
+<section>
+    <h2>Examples</h2>
+
+    <p>
+        <button class="btn" data-toggle="pop" data-target="#myPop" data-effect="from-below" data-cache="false">
+            Launch pop from below
+        </button>
+
+        <button class="btn" data-toggle="pop" data-target="#myPop" data-effect="from-above" data-cache="false">
+            Launch pop from above
+        </button>
+
+        <button class="btn" data-toggle="pop" data-target="#myPop" data-effect="from-left" data-cache="false">
+            Launch pop from left
+        </button>
+
+        <button class="btn" data-toggle="pop" data-target="#myPop" data-effect="from-right" data-cache="false">
+            Launch pop from right
+        </button>
+
+        <button class="btn" data-toggle="pop" data-target="#myPop" data-effect="from-top" data-cache="false">
+            Launch pop from top
+        </button>
+
+        <button class="btn" data-toggle="pop" data-target="#myPop" data-effect="from-bottom" data-cache="false">
+            Launch pop from bottom
+        </button>
+
+        <button class="btn" data-toggle="pop" data-target="#myPop" data-effect="deep-content" data-cache="false">
+            Launch deep content pop
+        </button>
+    </p>
+</section>
+
+<section>
+
+    <h2>Usage</h2>
+
+    <p>The pop plugin toggles your hidden content on demand, via data attributes or JavaScript. It also adds <code>.pop-open</code>
+        to the <code>&lt;body&gt;</code> to override default scrolling behavior and generates a
+        <code>.pop-backdrop</code> to provide a click area for dismissing shown pops when clicking outside the
+        pop.</p>
+
+    <h3>Via data attributes</h3>
+
+    <p>Activate a pop without writing JavaScript. Set <code>data-toggle="pop"</code> on a controller element, like a
+        button, along with a <code>data-target="#foo"</code> or <code>href="#foo"</code> to target a specific pop to
+        toggle.</p>
+
+    <div class="highlight"><pre><code class="html"><span class="nt">&lt;button</span> <span class="na">type=</span><span
+            class="s">&quot;button&quot;</span> <span class="na">data-toggle=</span><span
+            class="s">&quot;pop&quot;</span> <span class="na">data-target=</span><span
+            class="s">&quot;#myPop&quot;</span><span class="nt">&gt;</span>Launch pop<span
+            class="nt">&lt;/button&gt;</span>
+    </code></pre>
+    </div>
+
+    <h3>Via JavaScript</h3>
+
+    <p>Call a pop with id <code>myPop</code> with a single line of JavaScript:</p>
+
+    <div class="highlight"><pre><code class="js"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#myPop&#39;</span><span
+            class="p">).</span><span class="nx">pop</span><span class="p">(</span><span class="nx">options</span><span
+            class="p">)</span>
+    </code></pre>
+    </div>
+
+    <h3>Options</h3>
+
+    <p>Options can be passed via data attributes or JavaScript. For data attributes, append the option name to <code>data-</code>,
+        as in <code>data-backdrop=""</code>.</p>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th style="width: 100px;">Name</th>
+                <th style="width: 50px;">type</th>
+                <th style="width: 50px;">default</th>
+                <th>description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>backdrop</td>
+                <td>boolean or the string <code>'static'</code></td>
+                <td>true</td>
+                <td>Includes a pop-backdrop element. Alternatively, specify <code>static</code> for a backdrop which
+                    doesn't close the pop on click.
+                </td>
+            </tr>
+            <tr>
+                <td>keyboard</td>
+                <td>boolean</td>
+                <td>true</td>
+                <td>Closes the pop when escape key is pressed</td>
+            </tr>
+            <tr>
+                <td>show</td>
+                <td>boolean</td>
+                <td>true</td>
+                <td>Shows the pop when initialized.</td>
+            </tr>
+            <tr>
+                <td>remote</td>
+                <td>path</td>
+                <td>false</td>
+                <td><p>If a remote URL is provided, content will be loaded via jQuery's <code>load</code> method and
+                    injected into the root of the pop element. If you're using the data-api, you may alternatively use
+                    the <code>href</code> attribute to specify the remote source. An example of this is shown below:</p>
+
+                    <div class="highlight"><pre><code class="html"><span class="nt">&lt;a</span> <span class="na">data-toggle=</span><span
+                            class="s">&quot;pop&quot;</span> <span class="na">href=</span><span class="s">&quot;remote.html&quot;</span>
+                        <span class="na">data-target=</span><span class="s">&quot;#pop&quot;</span><span
+                                class="nt">&gt;</span>Click
+                        me<span class="nt">&lt;/a&gt;</span>
+                    </code></pre>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- /.table-responsive -->
+
+    <h3>Methods</h3>
+
+    <h4>.pop(options)</h4>
+
+    <p>Activates your content as a pop. Accepts an optional options <code>object</code>.</p>
+
+    <div class="highlight"><pre><code class="js"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#myPop&#39;</span><span
+            class="p">).</span><span class="nx">pop</span><span class="p">({</span>
+        <span class="nx">keyboard</span><span class="o">:</span> <span class="kc">false</span>
+        <span class="p">})</span>
+    </code></pre>
+    </div>
+
+    <h4>.pop('toggle')</h4>
+
+    <p>Manually toggles a pop. <strong>Returns to the caller before the pop has actually been shown or
+        hidden</strong> (i.e. before the <code>shown.pop</code> or <code>hidden.pop</code> event occurs).</p>
+
+    <div class="highlight"><pre><code class="js"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#myPop&#39;</span><span
+            class="p">).</span><span class="nx">pop</span><span class="p">(</span><span
+            class="s1">&#39;toggle&#39;</span><span class="p">)</span>
+    </code></pre>
+    </div>
+
+    <h4>.pop('show')</h4>
+
+    <p>Manually opens a pop. <strong>Returns to the caller before the pop has actually been shown</strong> (i.e.
+        before the <code>shown.pop</code> event occurs).</p>
+
+    <div class="highlight"><pre><code class="js"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#myPop&#39;</span><span
+            class="p">).</span><span class="nx">pop</span><span class="p">(</span><span
+            class="s1">&#39;show&#39;</span><span class="p">)</span>
+    </code></pre>
+    </div>
+
+    <h4>.pop('hide')</h4>
+
+    <p>Manually hides a pop. <strong>Returns to the caller before the pop has actually been hidden</strong> (i.e.
+        before the <code>hidden.pop</code> event occurs).</p>
+
+    <div class="highlight"><pre><code class="js"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#myPop&#39;</span><span
+            class="p">).</span><span class="nx">pop</span><span class="p">(</span><span
+            class="s1">&#39;hide&#39;</span><span class="p">)</span>
+    </code></pre>
+    </div>
+
+    <h3>Events</h3>
+
+    <p>Bootstrap's pop class exposes a few events for hooking into pop functionality.</p>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th style="width: 150px;">Event Type</th>
+                <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>show.pop</td>
+                <td>This event fires immediately when the <code>show</code> instance method is called. If caused by a
+                    click, the clicked element is available as the <code>relatedTarget</code> property of the event.
+                </td>
+            </tr>
+            <tr>
+                <td>shown.pop</td>
+                <td>This event is fired when the pop has been made visible to the user (will wait for CSS transitions
+                    to complete). If caused by a click, the clicked element is available as the
+                    <code>relatedTarget</code> property of the event.
+                </td>
+            </tr>
+            <tr>
+                <td>hide.pop</td>
+                <td>This event is fired immediately when the <code>hide</code> instance method has been called.</td>
+            </tr>
+            <tr>
+                <td>hidden.pop</td>
+                <td>This event is fired when the pop has finished being hidden from the user (will wait for CSS
+                    transitions to complete).
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- /.table-responsive -->
+
+
+    <div class="highlight"><pre><code class="js"><span class="nx">$</span><span class="p">(</span><span class="s1">'#myPop'</span><span
+            class="p">).</span><span class="nx">on</span><span class="p">(</span><span
+            class="s1">'hidden.pop'</span><span class="p">,</span> <span class="kd">function</span> <span
+            class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// do something...</span>
+        <span class="p">})</span>
+    </code></pre>
+    </div>
+</section>
+</article>
+</page>
+
+
+</body>
+</html>
