@@ -301,8 +301,13 @@
             margin-bottom: 0;
             background-color: transparent;
             border: 0;
-            white-space: nowrap;
         }
+        @media (max-width: 767px) {
+            .highlight pre {
+                white-space: nowrap;
+            }
+        }
+
         .highlight pre code {
             font-size: inherit;
             color: #333; /* Effectively the base text color */
@@ -395,7 +400,7 @@
 
 <div id="myPop" class="pop" role="dialog" aria-labelledby="myPopLable" aria-hidden="true">
     <div class="pop-content">
-        <div class="pop-header"><h1 class="pop-title" id="myPoplable">Pop Title</h1></div>
+        <div class="pop-header"><h1 class="pop-title" id="myPopLable">Pop Title</h1></div>
         <div class="pop-body" role="note"></p>Pop body...</p></div>
         <div class="pop-footer">
             <button data-dismiss="pop" class="pop-btn">Skip</button>
@@ -450,8 +455,28 @@
 
     <h2>Usage</h2>
 
+    <div class="highlight"><pre><code class="html"><span class="c">&lt;!-- Button trigger pop --&gt;</span>
+<font>&lt;button class="btn" data-toggle="pop" data-target="#myPop" data-effect="from-below"&gt;
+    Launch pop from below
+&lt;/button&gt;</font>
+
+<span class="c">&lt;!-- Pop --&gt;</span>
+<font>&lt;div id="myPop" class="pop" role="dialog" aria-labelledby="myPopLable" aria-hidden="true"&gt;
+ &lt;div class="pop-content"&gt;
+  &lt;div class="pop-header"&gt;&lt;h1 class="pop-title" id="myPoplable"&gt;Pop Title&lt;/h1&gt;&lt;/div&gt;
+   &lt;div class="pop-body" role="note"&gt;&lt;/p&gt;Pop body...&lt;/p&gt;&lt;/div&gt;
+    &lt;div class="pop-footer"&gt;
+     &lt;button data-dismiss="pop" class="pop-btn"&gt;Skip&lt;/button&gt;
+     &lt;button
+      data-dismiss="pop" class="pop-btn"&gt;Stay
+     &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</font>
+    </code></pre></div>
+
     <p>The pop plugin toggles your hidden content on demand, via data attributes or JavaScript. It also adds <code>.pop-open</code>
-        to the <code>&lt;body&gt;</code> to override default scrolling behavior and generates a
+        to the <code>&lt;html&gt;</code> to override default scrolling behavior and generates a
         <code>.pop-backdrop</code> to provide a click area for dismissing shown pops when clicking outside the
         pop.</p>
 
@@ -631,8 +656,10 @@
             class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
         <span class="c1">// do something...</span>
         <span class="p">})</span>
-    </code></pre>
-    </div>
+    </code></pre></div>
+
+
+
 </section>
 </article>
 </page>

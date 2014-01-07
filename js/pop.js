@@ -249,7 +249,7 @@
     }
 
 
-    // MODAL DATA-API
+    // POP DATA-API
     // ==============
 
     $(document).on('click.pop.data-api', '[data-toggle="pop"]', function (e) {
@@ -268,7 +268,16 @@
     })
 
     $(document)
-        .on('show.pop',  '.pop', function () { $(document.documentElement).addClass('pop-open') })
-        .on('hidden.pop', '.pop', function () { $(document.documentElement).removeClass('pop-open') })
+        .on('show.pop',  '.pop', function () {
+            // killing the scroll on body
+            $(document.documentElement).addClass('pop-open')
+            $(document.body).on('touchmove.pop', function(e){
+                e.preventDefault();
+            })
+        })
+        .on('hidden.pop', '.pop', function () {
+            $(document.documentElement).removeClass('pop-open')
+            $(document.body).off('touchmove.pop')
+        })
 
 })($);

@@ -1,3 +1,4 @@
+/* container to scroll within */
 .pop {
     position: fixed;
     top: 0;
@@ -10,8 +11,12 @@
     overflow-y: scroll;
 }
 
-/* backdrop */
+/* class for killing the scroll */
+.pop-open body {
+    overflow: hidden;
+}
 
+/* backdrop mask */
 .pop-backdrop {
     position: fixed;
     top: 0;
@@ -35,8 +40,7 @@
     opacity: .5;
 }
 
-/* content */
-
+/* positioning shell for the actual modal */
 .pop-content {
     position: absolute;
     border-radius: 10px;
