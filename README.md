@@ -6,4 +6,6 @@ Pop
 3. jQuery&Zepto plugin
 4. Implementing ARIA (Accessible Rich Internet Applications)
 
-Javascript part inspired by [bootstrap.modal](https://github.com/twbs/bootstrap/blob/master/js/modal.js)
+### Demo
+
+![qrcode](https://f.cloud.github.com/assets/677114/1861064/c0aca948-77bc-11e3-8390-5d3c57a4bbbc.png)
