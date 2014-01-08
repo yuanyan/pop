@@ -398,17 +398,21 @@
 
 <body>
 
-<div id="myPop" class="pop" role="dialog" aria-labelledby="myPopLable" aria-hidden="true">
+<div id="myPop" class="pop" role="alert" aria-labelledby="myPopLable" aria-hidden="true">
     <div class="pop-content">
-        <div class="pop-header"><h1 class="pop-title" id="myPopLable">Pop Title</h1></div>
-        <div class="pop-body" role="note"></p>Pop body...</p></div>
+        <div class="pop-header"><h3 class="pop-title" id="myPopLable">Title</h3></div>
+        <div class="pop-body" role="note"><p>This is a message.</p></div>
         <div class="pop-footer">
-            <button data-dismiss="pop" class="pop-btn">Skip</button>
+            <button data-dismiss="pop" class="pop-btn">OK</button>
             <button
-                    data-dismiss="pop" class="pop-btn">Stay
+                    data-dismiss="pop" class="pop-btn primary">Cancel
             </button>
         </div>
     </div>
+</div>
+
+<div id="myPop2" class="pop" role="dialog" aria-labelledby="myPopLable2" aria-hidden="true">
+
 </div>
 
 <page class="pop-page" id="myPage">
@@ -421,32 +425,36 @@
     <h2>Examples</h2>
 
     <p>
-        <button class="btn" data-toggle="pop" data-target="#myPop" data-effect="from-below" data-cache="false">
-            Launch pop from below
+        <button class="btn" data-toggle="pop" data-target="#myPop" data-type="alert" data-effect="from-below" data-cache="false">
+            Launch alert from below
         </button>
 
-        <button class="btn" data-toggle="pop" data-target="#myPop" data-effect="from-above" data-cache="false">
-            Launch pop from above
+        <button class="btn" data-toggle="pop" data-target="#myPop" data-type="alert" data-effect="from-above" data-cache="false">
+            Launch alert from above
         </button>
 
-        <button class="btn" data-toggle="pop" data-target="#myPop" data-effect="from-left" data-cache="false">
-            Launch pop from left
+        <button class="btn" data-toggle="pop" data-target="#myPop" data-type="alert" data-effect="from-left" data-cache="false">
+            Launch alert from left
         </button>
 
-        <button class="btn" data-toggle="pop" data-target="#myPop" data-effect="from-right" data-cache="false">
-            Launch pop from right
+        <button class="btn" data-toggle="pop" data-target="#myPop" data-type="alert" data-effect="from-right" data-cache="false">
+            Launch alert from right
         </button>
 
-        <button class="btn" data-toggle="pop" data-target="#myPop" data-effect="from-top" data-cache="false">
-            Launch pop from top
+        <button class="btn" data-toggle="pop" data-target="#myPop" data-type="alert" data-effect="from-top" data-cache="false">
+            Launch alert from top
         </button>
 
-        <button class="btn" data-toggle="pop" data-target="#myPop" data-effect="from-bottom" data-cache="false">
-            Launch pop from bottom
+        <button class="btn" data-toggle="pop" data-target="#myPop" data-type="alert" data-effect="from-bottom" data-cache="false">
+            Launch alert from bottom
         </button>
 
-        <button class="btn" data-toggle="pop" data-target="#myPop" data-effect="deep-content" data-cache="false">
-            Launch deep content pop
+        <button class="btn" data-toggle="pop" data-target="#myPop" data-type="alert" data-effect="deep-content" data-cache="false">
+            Launch alert with deep content
+        </button>
+
+        <button class="btn" data-toggle="pop" data-target="#myPop2" data-type="actionsheet" data-effect="deep-content" data-cache="false">
+            Launch actionsheet from bottom
         </button>
     </p>
 </section>
@@ -657,8 +665,6 @@
         <span class="c1">// do something...</span>
         <span class="p">})</span>
     </code></pre></div>
-
-
 
 </section>
 </article>
